@@ -1,5 +1,6 @@
 fastapi
 uvicorn[standard]
 pymongo
-argon2-cffi
 python-multipart
+python-jose
+bcrypt
