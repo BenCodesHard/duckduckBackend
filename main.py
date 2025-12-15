@@ -9,11 +9,13 @@ from jose import JWTError, jwt
 from jose.exceptions import ExpiredSignatureError
 from datetime import datetime, timedelta
 import bcrypt
+import certifi
+import os
 # from datetime import datetime
 # --- MongoDB connection ---
 # user: bensindberg_db_user password: CcdjRkMQk42NBm7d
-uri = "mongodb+srv://bensindberg_db_user:CcdjRkMQk42NBm7d@cluster0.tpjpecw.mongodb.net/"
-client = MongoClient(uri)
+uri = os.getenv("MONGODB_URI", "mongodb+srv://bensindberg_db_user:CcdjRkMQk42NBm7d@cluster0.tpjpecw.mongodb.net/")
+client = MongoClient(uri, tlsCAFile=certifi.where())
 db = client["duckbase"] # Database name
 collection = db["Account"] # Collection name (not robots.json, just robots)
 # --- FastAPI app setup ---

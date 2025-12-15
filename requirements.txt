@@ -1,6 +1,8 @@
 fastapi
 uvicorn[standard]
-pymongo
+pymongo[srv]
 python-multipart
 python-jose
 bcrypt
+certifi
+dnspython
