@@ -14,8 +14,15 @@ import os
 # from datetime import datetime
 # --- MongoDB connection ---
 # user: bensindberg_db_user password: CcdjRkMQk42NBm7d
-uri = os.getenv("MONGODB_URI", "mongodb+srv://bensindberg_db_user:CcdjRkMQk42NBm7d@cluster0.tpjpecw.mongodb.net/")
-client = MongoClient(uri, tlsCAFile=certifi.where())
+uri = os.getenv("MONGODB_URI", "mongodb+srv://bensindberg_db_user:CcdjRkMQk42NBm7d@cluster0.tpjpecw.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient(
+    uri,
+    tls=True,
+    tlsCAFile=certifi.where(),
+    tlsAllowInvalidCertificates=False,
+    serverSelectionTimeoutMS=30000,
+    connectTimeoutMS=30000,
+)
 db = client["duckbase"] # Database name
 collection = db["Account"] # Collection name (not robots.json, just robots)
 # --- FastAPI app setup ---
